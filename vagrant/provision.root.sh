@@ -9,7 +9,7 @@ sudo  timedatectl  set-ntp  true
 sudo  systemctl restart systemd-timesyncd.service
 sleep 4
 systemctl status  systemd-timesyncd.service
-sleep 1
+sleep 4
 
 
 # RamDisk
