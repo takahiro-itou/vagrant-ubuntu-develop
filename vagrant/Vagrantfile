@@ -1,7 +1,7 @@
 ##  -*-  coding: utf-8; mode: ruby -*-  ##
 ##  vi: set ft=ruby
 
-load  File.expand_path("DetectOS.rb")  if File.exists?("DetectOS.rb")
+load  File.expand_path("common/DetectOS.rb")  if File.exists?("common/DetectOS.rb")
 
 Vagrant.configure("2") do |config|
   config.vm.box = "takahiro-itou/ubuntu-jammy64-develop"
@@ -23,8 +23,13 @@ Vagrant.configure("2") do |config|
       "--paravirtprovider", "kvm",
     ]
 
+    #
+    # 時刻をホスト側と同期する
+    #
     v.customize [
-      "setextradata", :id, "VBoxInternal/Devices/VMMDev/0/Config/GetHostTimeDisabled", 0
+      'setextradata',     :id,
+      'VBoxInternal/Devices/VMMDev/0/Config/GetHostTimeDisabled',
+      0
     ]
   end
 
