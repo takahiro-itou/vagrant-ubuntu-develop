@@ -58,4 +58,6 @@ sudo  mount  -a
 ls -al /ext-hdd/ /ramdisk
 sleep 5
 
+sudo  chmod  1777  /ext-hdd/data
+
 date  >  /root/.provision.root
