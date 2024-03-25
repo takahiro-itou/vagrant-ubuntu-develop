@@ -55,5 +55,7 @@ ls -al /ext-hdd/ /ramdisk
 sleep 5
 
 sudo  mount  -a
+ls -al /ext-hdd/ /ramdisk
+sleep 5
 
 date  >  /root/.provision.root
