@@ -3,9 +3,19 @@
 
 load  File.expand_path("common/DetectOS.rb")  if File.exists?("common/DetectOS.rb")
 
+load  File.expand_path("common/MachineInfo.rb")  if File.exists?("common/MachineInfo.rb")
+
+machine_id = MachineInfo.machine_id
+
 Vagrant.configure("2") do |config|
   config.vm.box = "takahiro-itou/ubuntu-jammy64-develop"
   config.vm.box_download_options = {"ssl-revoke-best-effort" => true}
+
+  config.trigger.after :halt do |trigger|
+    trigger.run = {inline: "VBoxManage storageattach '#{machine_id}'" +
+      " --storagectl 'SCSI' --port 2 --device 0 --type hdd --medium none"
+    }
+  end
 
   config.vm.provider "virtualbox" do |v|
     v.name   = "vagrant-ubuntu-develop"
