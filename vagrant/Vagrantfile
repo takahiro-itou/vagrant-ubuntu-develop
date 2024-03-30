@@ -40,8 +40,7 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder(".", "/vagrant", disabled: true)
 end
 
-load  File.expand_path("AttachNewhdd.rb")  if File.exists?("AttachNewHdd.rb")
-
+load  File.expand_path("common/AttachNewhdd.rb")  if File.exists?("common/AttachNewHdd.rb")
 
 # Provisioning
 Vagrant.configure("2") do |config|
