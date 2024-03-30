@@ -1,6 +1,10 @@
 ##  -*-  coding: utf-8; mode: ruby -*-  ##
 ##  vi: set ft=ruby
 
+load  File.expand_path("common/MachineInfo.rb")  if File.exists?("common/MachineInfo.rb")
+
+machine_id = MachineInfo.machine_id
+
 Vagrant.configure("2") do |config|
 
   config.vm.provider "virtualbox" do |v|
