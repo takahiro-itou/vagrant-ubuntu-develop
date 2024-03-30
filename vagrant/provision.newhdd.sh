@@ -29,3 +29,6 @@ sudo  chmod  1777  /ext-hdd/data
 
 echo  -e  "/dev/sdc1\t/ext-hdd/data\text3\tdefaults\t0\t0"  \
     |  sudo  tee -a  /etc/fstab
+
+sudo  mount  -a
+sudo  chmod  1777  /ext-hdd/data
