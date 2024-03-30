@@ -3,7 +3,7 @@
 
 load  File.expand_path("common/MachineInfo.rb")  if File.exists?("common/MachineInfo.rb")
 
-machine_id = MachineInfo.machine_id
+machine_id = MachineInfo.get_machine_id()
 
 Vagrant.configure("2") do |config|
 
