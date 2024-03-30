@@ -44,48 +44,8 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder(".", "/vagrant", disabled: true)
 end
 
-Vagrant.configure("2") do |config|
+load  File.expand_path("AttachNewhdd.rb")  if File.exists?("AttachNewHdd.rb")
 
-  config.vm.provider "virtualbox" do |v|
-    #
-    # ディスクを追加する
-    #
-    disk_file = './disk/ubuntu-develop-sdc.vdi'
-    unless File.exists?(disk_file)
-      v.customize [
-        'createmedium',     'disk',
-        '--filename',       disk_file,
-        '--size',           50 * 1024,
-        '--format',         'VDI',
-      ]
-    end
-
-    if ARGV.include?('destroy')
-    else
-      v.customize [
-        'storageattach',    :id,
-        '--storagectl',     'SCSI',
-        '--port',           2,
-        '--device',         0,
-        '--type',           'hdd',
-        '--medium',         disk_file,
-      ]
-    end
-  end
-
-  config.vm.provision("newhdd", type: "shell",
-                      path: "provision.newhdd.sh",
-                      privileged: true)
-  #
-  # 仮想マシンを停止した時に、デタッチしておく
-  #
-  config.trigger.after :halt do |trigger|
-    trigger.run = {inline: "VBoxManage storageattach '#{machine_id}'" +
-      " --storagectl 'SCSI' --port 2 --device 0 --type hdd --medium none"
-    }
-  end
-
-end
 
 # Provisioning
 Vagrant.configure("2") do |config|
