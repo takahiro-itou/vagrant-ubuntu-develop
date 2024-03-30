@@ -50,9 +50,7 @@ Vagrant.configure("2") do |config|
       " --storagectl 'SCSI' --port 2 --device 0 --type hdd --medium none"
     }
   end
-end
 
-Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox" do |v|
     #
     # ディスクを追加する
