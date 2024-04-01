@@ -1,7 +1,7 @@
 ##  -*-  coding: utf-8; mode: ruby -*-  ##
 ##  vi: set ft=ruby
 
-load  File.expand_path("common/DetectOS.rb")  if File.exists?("common/DetectOS.rb")
+load  File.expand_path('common/DetectOS.rb')
 
 Vagrant.configure("2") do |config|
   config.vm.box = "takahiro-itou/ubuntu-jammy64-develop"
