@@ -18,7 +18,7 @@ Vagrant.configure("2") do |config|
 end
 
 load  File.expand_path('common/CommonCustomize.rb')
-load  File.expand_path("common/AttachNewhdd.rb")  if File.exists?("common/AttachNewHdd.rb")
+load  File.expand_path('common/AttachNewhdd.rb')
 
 # Provisioning
 load  File.expand_path('common/UserFiles.rb')
