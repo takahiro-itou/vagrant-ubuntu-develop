@@ -1,63 +1,38 @@
 ##  -*-  coding: utf-8; mode: ruby -*-  ##
 ##  vi: set ft=ruby
 
-load  File.expand_path("common/DetectOS.rb")  if File.exists?("common/DetectOS.rb")
+load  File.expand_path('common/DetectOS.rb')
 
 Vagrant.configure("2") do |config|
   config.vm.box = "takahiro-itou/ubuntu-jammy64-develop"
-  config.vm.box_download_options = {"ssl-revoke-best-effort" => true}
 
   config.vm.provider "virtualbox" do |v|
     v.name   = "vagrant-ubuntu-develop"
     v.memory = "3072"
-
     v.gui    = false
-    v.customize [
-      "modifyvm",           :id,
-      "--cableconnected1",  "on",
-      "--hwvirtex",         "on",
-      "--nestedpaging",     "on",
-      "--largepages",       "on",
-      "--ioapic",           "on",
-      "--pae",              "on",
-      "--paravirtprovider", "kvm",
-    ]
-
-    #
-    # 時刻をホスト側と同期する
-    #
-    v.customize [
-      'setextradata',     :id,
-      'VBoxInternal/Devices/VMMDev/0/Config/GetHostTimeDisabled',
-      0
-    ]
   end
-
-  config.vm.boot_timeout = 900
 
   config.vm.network(:forwarded_port, guest: 22, host: 11022, id: "ssh")
   config.vm.network("private_network", ip: "192.168.33.10")
   config.vm.synced_folder(".", "/vagrant", disabled: true)
 end
 
-load  File.expand_path("common/AttachNewhdd.rb")  if File.exists?("common/AttachNewHdd.rb")
+load  File.expand_path('common/CommonCustomize.rb')
+
+$disk_image_file = './disk/ubuntu-develop-sdc.vdi'
+load  File.expand_path('common/AttachNewhdd.rb')
 
 # Provisioning
-Vagrant.configure("2") do |config|
-  config.vm.provision("userfiles1", type: "file",
-                      source: "data.tar.xz",
-                      destination: "/tmp/")
-  config.vm.provision("userfiles2", type: "shell",
-                      path: "provision.data.sh",
-                      privileged: false)
+load  File.expand_path('common/UserFiles.rb')
 
+Vagrant.configure("2") do |config|
   config.vm.provision("root", type: "shell",
                       path: "provision.root.sh",
                       privileged: true)
   config.vm.provision("user", type: "shell",
-                      path: "provision.user.sh",
+                      path: "common/provision.user.sh",
                       privileged: false)
   config.vm.provision("hguser", type: "shell",
-                      path: "provision.hguser.sh",
+                      path: "common/provision.hguser.sh",
                       privileged: false)
 end
