@@ -23,7 +23,7 @@ $disk_image_file = './disk/ubuntu-develop-sdc.vdi'
 load  File.expand_path('common/AttachNewhdd.rb')
 
 # Provisioning(s)
-load  File.expand_path('common/UserFiles.rb')
+load  File.expand_path('common/UploadFiles.rb')
 
 Vagrant.configure("2") do |config|
   config.vm.provision("root", type: "shell",
