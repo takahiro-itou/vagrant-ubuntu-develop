@@ -22,13 +22,18 @@ load  File.expand_path('common/CommonCustomize.rb')
 $disk_image_file = './disk/ubuntu-develop-sdc.vdi'
 load  File.expand_path('common/AttachNewhdd.rb')
 
-# Provisioning
+# Provisioning(s)
 load  File.expand_path('common/UserFiles.rb')
 
 Vagrant.configure("2") do |config|
   config.vm.provision("root", type: "shell",
                       path: "provision.root.sh",
                       privileged: true)
+end
+
+load  File.expand_path('common/RamDisk.rb')
+
+Vagrant.configure("2") do |config|
   config.vm.provision("user", type: "shell",
                       path: "common/provision/user.sh",
                       privileged: false)
