@@ -35,6 +35,14 @@ end
 $disk_image_file = File.expand_path('./disk/ubuntu-develop-sdc.vdi')
 load  File.expand_path('common/AttachSCSIHdd.rb')
 
+Vagrant.configure("2") do |config|
+  config.vm.provider "virtualbox" do |v|
+    attach_scsi_hdd(v, disk_file)
+  end
+  provision_newhdd_scsi(config.vm)
+  config_detach_trigger(config)
+end
+
 # Provisioning(s)
 load  File.expand_path('common/UploadFiles.rb')
 load  File.expand_path('common/SetupUbuntu.rb')
