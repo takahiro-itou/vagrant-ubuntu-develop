@@ -24,6 +24,14 @@ end
 
 load  File.expand_path('common/CommonCustomize.rb')
 
+Vagrant.configure("2") do |config|
+  customize_config(config)
+
+  config.vm.provider "virtualbox" do |v|
+    customize_vm_provider(v)
+  end
+end
+
 $disk_image_file = File.expand_path('./disk/ubuntu-develop-sdc.vdi')
 load  File.expand_path('common/AttachSCSIHdd.rb')
 
